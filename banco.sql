@@ -39,5 +39,5 @@ Situações: pendente,analise,finalizado*/
 
 INSERT INTO maquina(ip,nome,ativo) VALUES ("232-333-456","notebook lenovo x10",1),("233-333-455","notebook asus5",0s);
 INSERT INTO cliente(nome,senha,ipMaquina,ativo) VALUES ("fulano","333","232-333-456",1),("fulanoInativo","444","233-333-455",0);
-INSERT INTO tecnico(nome,senha) VALUES ("siclano","11");
+INSERT INTO tecnico(nome,senha,ativo) VALUES ("siclano","11",1),("siclanoInativo","22",0);
 INSERT INTO chamado(descricao,tipo,ipMaquina,idCliente,idTecnico) VALUES ("carregador estragou, será necessária a troca por um novo carregador, juntamente com o cabo","moderado","232-333-456",1,1);
