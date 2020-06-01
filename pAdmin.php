@@ -59,6 +59,17 @@
         </div>
     </div>
 
+    <div class="row">
+        <div class="col-sm-6">
+            <h3>Clientes sem máquina</h3>
+            <small>*Clientes ativos</small>
+        </div>
+        <div class="col-sm-6">
+            <h3>Máquinas sem cliente</h3>
+            <small>*Máquinas ativas</small>
+        </div>
+    </div>
+
 
 </div>
 </body>

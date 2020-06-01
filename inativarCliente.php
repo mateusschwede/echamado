@@ -4,7 +4,6 @@
     if((empty($_SESSION['nome'])) or (empty($_SESSION['senha']))) {header("location: index.php");}
 
     if(!empty($_GET['id'])) {
-        //Verificar se tem chamado em analise. Inativa e tira a máquina
         $r = $db->prepare("SELECT id FROM chamado WHERE idCliente=? AND situacao='andamento'");
         $r->execute(array(base64_decode($_GET['id'])));
         if($r->rowCount()==0) {
