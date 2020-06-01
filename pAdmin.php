@@ -18,7 +18,7 @@
                         <li class="nav-item active"><a class="nav-link" href="pAdmin.php">Home</a></li>
                         <li class="nav-item"><a class="nav-link" href="admCliente.php">Clientes</a></li>
                         <li class="nav-item"><a class="nav-link" href="admMaquina.php">Máquinas</a></li>
-                        <li class="nav-item"><a class="nav-link" href="admTecnico.php">Tecnicos</a></li>
+                        <li class="nav-item"><a class="nav-link" href="admTecnico.php">Técnicos</a></li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="relatorios" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Relatórios</a>
                             <div class="dropdown-menu" aria-labelledby="relatorios">
@@ -53,7 +53,7 @@
                     foreach($linhas as $l) {echo "<li class='list-group-item list-group-item-warning'><h5 class='mb-1'>".$l['count(id)']." clientes registrados</li>";}
                     $r = $db->query("SELECT count(id) FROM tecnico");
                     $linhas = $r->fetchAll(PDO::FETCH_ASSOC);
-                    foreach($linhas as $l) {echo "<li class='list-group-item list-group-item-dark'><h5 class='mb-1'>".$l['count(id)']." tecnicos registrados</li>";}
+                    foreach($linhas as $l) {echo "<li class='list-group-item list-group-item-dark'><h5 class='mb-1'>".$l['count(id)']." técnicos registrados</li>";}
                 ?>
             </ul>
         </div>

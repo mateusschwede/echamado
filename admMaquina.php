@@ -18,7 +18,7 @@
                         <li class="nav-item"><a class="nav-link" href="pAdmin.php">Home</a></li>
                         <li class="nav-item"><a class="nav-link" href="admCliente.php">Clientes</a></li>
                         <li class="nav-item active"><a class="nav-link" href="admMaquina.php">Máquinas</a></li>
-                        <li class="nav-item"><a class="nav-link" href="admTecnico.php">Tecnicos</a></li>
+                        <li class="nav-item"><a class="nav-link" href="admTecnico.php">Técnicos</a></li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="relatorios" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Relatórios</a>
                             <div class="dropdown-menu" aria-labelledby="relatorios">
