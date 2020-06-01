@@ -112,6 +112,13 @@
                         echo "
                                 <p class='mb-1'>Técnico: (".$l['idTecnico'].") ".$nomeTecnico."</p>
                         ";
+                        $r4 = $db->prepare("SELECT nome FROM cliente WHERE id=?");
+                        $r4->execute(array($l['idCliente']));
+                        $linhas4 = $r4->fetchAll(PDO::FETCH_ASSOC);
+                        foreach($linhas4 as $l4) {$nomeCliente = $l4['nome'];}
+                        echo "
+                                <p class='mb-1'>Cliente: (".$l['idCliente'].") ".$nomeCliente."</p>
+                        ";
                         if($l['dthrAnalise']!=null) {echo "<p class='mb-1'>Análise: ".$l['dthrAnalise']."</p>";}
                         if($l['dthrFinalizado']!=null) {echo "<p class='mb-1'>Finalizado: ".$l['dthrFinalizado']."</p>";}
                         echo "
