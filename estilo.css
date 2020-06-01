@@ -1,3 +1,15 @@
 /*
-ÍCONE: <img src="https://img.icons8.com/color/48/000000/technical-support.png"/>
+ÍCONE: <img src="https://img.icons8.com/color/48/000000/technical-support.png">
+
+CORES:
+- Azul: #007BFF
+- Azul2: #17A2B8
+- Vermelho: #DC3545
+- Amarelo: #FFC107
+- Verde: #28A745
+- Cinza: #6C757D
+- Cinza claro: #F8F9FA
+- Preto: #343A40
 */
+
+#entrada {background-color: #007BFF; color: white; text-align: center; padding: 3%;}
