@@ -38,6 +38,7 @@ if((empty($_SESSION['nome'])) or (empty($_SESSION['senha']))) {header("location:
     <div class="row">
         <div class="col-sm-12">
             <h1>Clientes</h1>
+            <?php if($_SESSION['msgm']!=null){echo $_SESSION['msgm'];$_SESSION['msgm']=null;}?>
             <a class="btn btn-secondary btn-sm" href="addCliente.php">Adicionar</a>
             <div class="list-group">
                 <?php
