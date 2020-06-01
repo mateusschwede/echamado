@@ -70,7 +70,7 @@
                         ?>
                     </select>
                 </div>
-                <button type="submit" class="btn btn-danger" onclick="window.location.href='admCliente.php'">Cancelar</button>
+                <button type="button" class="btn btn-danger" onclick="window.location.href='admCliente.php'">Cancelar</button>
                 <button type="submit" class="btn btn-success">Adicionar</button>
             </form>
         </div>

@@ -56,7 +56,7 @@
                 <div class="form-group">
                     <input type="text" class="form-control" placeholder="senha" required name="senha" maxlength="5" style="text-transform: lowercase">
                 </div>
-                <button type="submit" class="btn btn-danger" onclick="window.location.href='admTecnico.php'">Cancelar</button>
+                <button type="button" class="btn btn-danger" onclick="window.location.href='admTecnico.php'">Cancelar</button>
                 <button type="submit" class="btn btn-success">Adicionar</button>
             </form>
         </div>

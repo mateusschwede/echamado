@@ -56,7 +56,7 @@
                     foreach($linhas as $l) {echo "<li class='list-group-item list-group-item-dark'><h5 class='mb-1'>".$l['count(id)']." técnicos registrados</li>";}
                     $r = $db->query("SELECT count(ip) FROM maquina");
                     $linhas = $r->fetchAll(PDO::FETCH_ASSOC);
-                    foreach($linhas as $l) {echo "<li class='list-group-item list-group-item-dark'><h5 class='mb-1'>".$l['count(ip)']." máquinas registradas</li>";}
+                    foreach($linhas as $l) {echo "<li class='list-group-item list-group-item-danger'><h5 class='mb-1'>".$l['count(ip)']." máquinas registradas</li>";}
                 ?>
             </ul>
         </div>
