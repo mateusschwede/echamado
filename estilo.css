@@ -13,3 +13,7 @@ CORES:
 */
 
 #entrada {background-color: #007BFF; color: white; text-align: center; padding: 3%;}
+#fundo {background-color: #007BFF; color: white;}
+#menu {padding: 0%;}
+#item1 {color: #343A40; border-left: solid 7px #28A745;}
+#item2 {color: #343A40; border-left: solid 7px #DC3545;}
