@@ -2,9 +2,20 @@
     require_once 'conect.php';
     session_start();
     if((empty($_SESSION['nome'])) or (empty($_SESSION['senha']))) {header("location: index.php");}
+
+    if((!empty($_POST['ip'])) and (!empty($_POST['nome']))) {
+        $r = $db->prepare("SELECT ip FROM maquina WHERE ip=?");
+        $r->execute(array($_POST['ip']));
+        if($r->rowCount()==0) {
+            $r = $db->prepare("INSERT INTO maquina(ip,nome) VALUES (?,?)");
+            $r->execute(array($_POST['ip'],$_POST['nome']));
+            $_SESSION['msgm'] = "<br><div class='alert alert-success alert-dismissible fade show' role='alert'>Máquina IP ".$_POST['ip']." adicionada!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div><br>";
+            header("location: admMaquina.php");
+        } else {$_SESSION['msgm'] = "<br><div class='alert alert-danger alert-dismissible fade show' role='alert'>Endereço IP já existente!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div><br>"; header("location: admMaquina.php");}
+    }
 ?>
 
-<body id="fundo2">
+<body id="fundo">
 <div class="container-fluid">
 
 
@@ -15,9 +26,9 @@
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
-                        <li class="nav-item active"><a class="nav-link" href="pAdmin.php">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="pAdmin.php">Home</a></li>
                         <li class="nav-item"><a class="nav-link" href="admCliente.php">Clientes</a></li>
-                        <li class="nav-item"><a class="nav-link" href="admMaquina.php">Máquinas</a></li>
+                        <li class="nav-item active"><a class="nav-link" href="admMaquina.php">Máquinas</a></li>
                         <li class="nav-item"><a class="nav-link" href="admTecnico.php">Tecnicos</a></li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="relatorios" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Relatórios</a>
@@ -36,39 +47,18 @@
     </div>
 
     <div class="row">
-        <div class="col-sm-12" style="padding: 3%;">
-            <h1>Bem-vindo!</h1>
-        </div>
-    </div>
-
-    <div class="row">
         <div class="col-sm-12">
-            <ul class="list-group">
-                <?php
-                    $r = $db->query("SELECT count(id) FROM chamado");
-                    $linhas = $r->fetchAll(PDO::FETCH_ASSOC);
-                    foreach($linhas as $l) {echo "<li class='list-group-item list-group-item-success'><h5 class='mb-1'>".$l['count(id)']." chamados registrados</li>";}
-                    $r = $db->query("SELECT count(id) FROM cliente");
-                    $linhas = $r->fetchAll(PDO::FETCH_ASSOC);
-                    foreach($linhas as $l) {echo "<li class='list-group-item list-group-item-warning'><h5 class='mb-1'>".$l['count(id)']." clientes registrados</li>";}
-                    $r = $db->query("SELECT count(id) FROM tecnico");
-                    $linhas = $r->fetchAll(PDO::FETCH_ASSOC);
-                    foreach($linhas as $l) {echo "<li class='list-group-item list-group-item-dark'><h5 class='mb-1'>".$l['count(id)']." tecnicos registrados</li>";}
-                ?>
-            </ul>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-sm-6">
-            <br>
-            <h3>Clientes sem máquinas</h3>
-            <small>*Clientes ativos</small>
-        </div>
-        <div class="col-sm-6">
-            <br>
-            <h3>Máquinas sem clientes</h3>
-            <small>*Máquinas ativas</small>
+            <h1>Nova máquina</h1>
+            <form action="addMaquina.php" method="post">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="endereço ip" required name="ip" maxlength="30" style="text-transform: lowercase">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="nome" required name="nome" maxlength="50" style="text-transform: lowercase">
+                </div>
+                <button type="submit" class="btn btn-danger" onclick="window.location.href='admMaquina.php'">Cancelar</button>
+                <button type="submit" class="btn btn-success">Adicionar</button>
+            </form>
         </div>
     </div>
 

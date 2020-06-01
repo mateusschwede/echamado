@@ -1,7 +1,7 @@
 <?php
-require_once 'conect.php';
-session_start();
-if((empty($_SESSION['nome'])) or (empty($_SESSION['senha']))) {header("location: index.php");}
+    require_once 'conect.php';
+    session_start();
+    if((empty($_SESSION['nome'])) or (empty($_SESSION['senha']))) {header("location: index.php");}
 ?>
 
 <body id="fundo">
@@ -38,6 +38,7 @@ if((empty($_SESSION['nome'])) or (empty($_SESSION['senha']))) {header("location:
     <div class="row">
         <div class="col-sm-12">
             <h1>Máquinas</h1>
+            <?php if($_SESSION['msgm']!=null){echo $_SESSION['msgm'];$_SESSION['msgm']=null;}?>
             <a class="btn btn-secondary btn-sm" href="addMaquina.php">Adicionar</a>
             <ul class="list-group">
                 <?php
