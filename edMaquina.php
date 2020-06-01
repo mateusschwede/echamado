@@ -3,15 +3,16 @@
     session_start();
     if((empty($_SESSION['nome'])) or (empty($_SESSION['senha']))) {header("location: index.php");}
 
-    if((!empty($_POST['ip'])) and (!empty($_POST['nome']))) {
-        $r = $db->prepare("SELECT ip FROM maquina WHERE ip=?");
-        $r->execute(array($_POST['ip']));
-        if($r->rowCount()==0) {
-            $r = $db->prepare("INSERT INTO maquina(ip,nome) VALUES (?,?)");
-            $r->execute(array($_POST['ip'],$_POST['nome']));
-            $_SESSION['msgm'] = "<br><div class='alert alert-success alert-dismissible fade show' role='alert'>Máquina IP ".$_POST['ip']." adicionada!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div><br>";
-            header("location: admMaquina.php");
-        } else {$_SESSION['msgm'] = "<br><div class='alert alert-danger alert-dismissible fade show' role='alert'>Endereço IP já existente!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div><br>"; header("location: admMaquina.php");}
+    $r = $db->prepare("SELECT nome FROM maquina WHERE ip=?");
+    $r->execute(array(base64_decode($_GET['ip'])));
+    $linhas = $r->fetchAll(PDO::FETCH_ASSOC);
+    foreach($linhas as $l) {$nome = $l['nome'];}
+
+    if((!empty($_GET['ipVelho'])) and (!empty($_POST['nome2']))) {
+        $r = $db->prepare("UPDATE maquina SET nome=? WHERE ip=?");
+        $r->execute(array($_POST['nome2'],$_GET['ipVelho']));
+        $_SESSION['msgm'] = "<br><div class='alert alert-success alert-dismissible fade show' role='alert'>Máquina atualizada!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div><br>";
+        header("location: admMaquina.php");
     }
 ?>
 
@@ -48,16 +49,13 @@
 
     <div class="row">
         <div class="col-sm-12">
-            <h1>Nova máquina</h1>
-            <form action="addMaquina.php" method="post">
+            <h1>Editar máquina</h1>
+            <form action="edMaquina.php?ipVelho=<?=base64_decode($_GET['ip'])?>" method="post">
                 <div class="form-group">
-                    <input type="text" class="form-control" placeholder="endereço ip" required name="ip" maxlength="30" style="text-transform: lowercase">
-                </div>
-                <div class="form-group">
-                    <input type="text" class="form-control" placeholder="nome" required name="nome" maxlength="50" style="text-transform: lowercase">
+                    <input type="text" class="form-control" placeholder="nome" required name="nome2" maxlength="50" style="text-transform: lowercase" value="<?=$nome?>">
                 </div>
                 <button type="button" class="btn btn-danger" onclick="window.location.href='admMaquina.php'">Cancelar</button>
-                <button type="submit" class="btn btn-success">Adicionar</button>
+                <button type="submit" class="btn btn-success">Atualizar</button>
             </form>
         </div>
     </div>

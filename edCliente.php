@@ -53,7 +53,7 @@
 
     <div class="row">
         <div class="col-sm-12">
-            <h1>Novo cliente</h1>
+            <h1>Editar cliente</h1>
             <form action="edCliente.php?idVelho=<?=base64_decode($_GET['id'])?>" method="post">
                 <div class="form-group">
                     <input type="text" class="form-control" placeholder="nome" required name="nome2" maxlength="50" style="text-transform: lowercase" value="<?=$nome?>">
