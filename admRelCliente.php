@@ -60,9 +60,65 @@
 
     <div class="row">
         <div class="col-sm-12">
+            <br>
             <?php
                 if(!empty($_POST['idCliente'])) {
-                    //Executa aqui
+                    $r = $db->prepare("SELECT * FROM chamado WHERE idCliente=? ORDER BY dthrCadastro DESC,situacao,tipo DESC");
+                    $r->execute(array($_POST['idCliente']));
+                    $linhas = $r->fetchAll(PDO::FETCH_ASSOC);
+                    foreach($linhas as $l) {
+                        switch ($l['situacao']) {
+                            case "pendente":
+                                $borda = "item2";
+                                break;
+                            case "andamento":
+                                $borda = "item3";
+                                break;
+                            default:
+                                $borda = "item1";
+                                break;
+                        }
+                        switch ($l['tipo']) {
+                            case "leve":
+                                $cor = "#28A745";
+                                break;
+                            case "moderado":
+                                $cor = "#FFC107";
+                                break;
+                            default:
+                                $cor = "#DC3545";
+                                break;
+                        }
+                        echo "
+                            <li class='list-group-item' id=".$borda.">
+                                <div class='d-flex w-100 justify-content-between'>
+                                    <h5 class='mb-1'>Chamado ".$l['id']."</h5>
+                                    <small>".$l['dthrCadastro']."</small>
+                                </div>
+                                <p class='mb-1'>Tipo: ".$l['tipo']."</p>
+                                <p class='mb-1'>Situação: <span style='color: ".$cor."'><b>".$l['situacao']."</b></span></p>
+                        ";
+                        $r2 = $db->prepare("SELECT nome FROM maquina WHERE ip=?");
+                        $r2->execute(array($l['ipMaquina']));
+                        $linhas2 = $r2->fetchAll(PDO::FETCH_ASSOC);
+                        foreach($linhas2 as $l2) {$nomeMaquina = $l2['nome'];}
+                        echo "
+                                <p class='mb-1'>Máquina: (".$l['ipMaquina'].") ".$nomeMaquina."</p>
+                        ";
+                        $r3 = $db->prepare("SELECT nome FROM tecnico WHERE id=?");
+                        $r3->execute(array($l['idTecnico']));
+                        $linhas3 = $r3->fetchAll(PDO::FETCH_ASSOC);
+                        foreach($linhas3 as $l3) {$nomeTecnico = $l3['nome'];}
+                        echo "
+                                <p class='mb-1'>Técnico: (".$l['idTecnico'].") ".$nomeTecnico."</p>
+                        ";
+                        if($l['dthrAnalise']!=null) {echo "<p class='mb-1'>Análise: ".$l['dthrAnalise']."</p>";}
+                        if($l['dthrFinalizado']!=null) {echo "<p class='mb-1'>Finalizado: ".$l['dthrFinalizado']."</p>";}
+                        echo "
+                                <p class='mb-1'>Descrição: ".$l['descricao']."</p>
+                            </li>
+                        ";
+                    }
                 }
             ?>
         </div>
