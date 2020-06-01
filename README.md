@@ -58,7 +58,7 @@ O EChamado é um software gestor de chamados eletrônicos para auxiliar o suport
 - dthrCadastro
 - descricao
 - tipo (leve,moderado,preciso,urgente)
-- situacao (pendente,analise,finalizado)
+- situacao (pendente,andamento,finalizado)
 - ipMaquina
 - idCliente
 - idTecnico (qndo finalizado)

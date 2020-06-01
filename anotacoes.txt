@@ -1,0 +1,2 @@
+- Cliente qndo inativa perde a máquina = máquina disponível
+- Cliente qndo ativa = cliente sem máquina

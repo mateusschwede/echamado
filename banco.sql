@@ -28,14 +28,14 @@ CREATE TABLE chamado (
     descricao VARCHAR(500) NOT NULL,
     tipo VARCHAR(10) NOT NULL,
     situacao VARCHAR(10) NOT NULL DEFAULT "pendente",
-    ipMaquina VARCHAR(30) NOT NULL,
+    ipMaquina VARCHAR(30),
     idCliente INTEGER NOT NULL,
     idTecnico INTEGER,
     dthrAnalise DATETIME,
     dthrFinalizado DATETIME
 ) CHARSET=utf8;
 /*Tipos: leve,moderado,preciso,urgente
-Situações: pendente,analise,finalizado*/
+Situações: pendente,andamento,finalizado*/
 
 INSERT INTO maquina(ip,nome,ativo) VALUES ("232-333-456","notebook lenovo x10",1),("233-333-455","notebook asus5",0s);
 INSERT INTO cliente(nome,senha,ipMaquina,ativo) VALUES ("fulano","333","232-333-456",1),("fulanoInativo","444","233-333-455",0);
