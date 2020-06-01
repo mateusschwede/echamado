@@ -4,7 +4,7 @@
     if((empty($_SESSION['nome'])) or (empty($_SESSION['senha']))) {header("location: index.php");}
 ?>
 
-<body>
+<body id="fundo2">
 <div class="container-fluid">
 
 
@@ -28,9 +28,34 @@
                                 <a class="dropdown-item" href="admRelTecnico.php">Chamados por tecnico</a>
                             </div>
                         </li>
+                        <li class="nav-item"><a class="nav-link" href="logout.php" style="color:tomato;">Logout</a></li>
                     </ul>
                 </div>
             </nav>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12" style="padding: 3%;">
+            <h1>Bem-vindo!</h1>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <ul class="list-group">
+                <?php
+                    $r = $db->query("SELECT count(id) FROM chamado");
+                    $linhas = $r->fetchAll(PDO::FETCH_ASSOC);
+                    foreach($linhas as $l) {echo "<li class='list-group-item list-group-item-success'><h5 class='mb-1'>".$l['count(id)']." chamados registrados</li>";}
+                    $r = $db->query("SELECT count(id) FROM cliente");
+                    $linhas = $r->fetchAll(PDO::FETCH_ASSOC);
+                    foreach($linhas as $l) {echo "<li class='list-group-item list-group-item-warning'><h5 class='mb-1'>".$l['count(id)']." clientes registrados</li>";}
+                    $r = $db->query("SELECT count(id) FROM tecnico");
+                    $linhas = $r->fetchAll(PDO::FETCH_ASSOC);
+                    foreach($linhas as $l) {echo "<li class='list-group-item list-group-item-dark'><h5 class='mb-1'>".$l['count(id)']." tecnicos registrados</li>";}
+                ?>
+            </ul>
         </div>
     </div>
 
