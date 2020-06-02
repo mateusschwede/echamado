@@ -38,6 +38,7 @@
     <div class="row">
         <div class="col-sm-12" style="padding: 3%;">
             <h1>Bem-vindo!</h1>
+            <?php if($_SESSION['msgm']!=null){echo $_SESSION['msgm'];$_SESSION['msgm']=null;}?>
         </div>
     </div>
 
@@ -67,11 +68,45 @@
             <br>
             <h3>Clientes sem máquinas</h3>
             <small>*Clientes ativos</small>
+            <ul class="list-group">
+                <?php
+                    $r = $db->query("SELECT * FROM cliente WHERE ativo=1 AND ipMaquina is null ORDER BY nome");
+                    $linhas = $r->fetchAll(PDO::FETCH_ASSOC);
+                    foreach($linhas as $l) {
+                        echo "
+                            <li class='list-group-item' id='item3'>
+                                <h5 class='mb-1'>(".$l['id'].") ".$l['nome']."</h5>
+                                <a class='btn btn-danger btn-sm' href='inativarCliente.php?id=".base64_encode($l['id'])."'>Inativar</a>
+                                <a class='btn btn-success btn-sm' href='atrClienteMaquina.php?id=".base64_encode($l['id'])."'>Atribuir</a>
+                            </li>
+                        ";
+                    }
+                ?>
+            </ul>
         </div>
         <div class="col-sm-6">
             <br>
             <h3>Máquinas sem clientes</h3>
             <small>*Máquinas ativas</small>
+            <ul class="list-group">
+                <?php
+                    $r = $db->query("SELECT * FROM maquina WHERE ativo=1 ORDER BY nome");
+                    $linhas = $r->fetchAll(PDO::FETCH_ASSOC);
+                    foreach($linhas as $l) {
+                        $r = $db->prepare("SELECT ipMaquina FROM cliente WHERE ipMaquina=?");
+                        $r->execute(array($l['ip']));
+                        if($r->rowCount()==0) {
+                            echo "
+                                <li class='list-group-item' id='item3'>
+                                    <h5 class='mb-1'>(".$l['ip'].") ".$l['nome']."</h5>
+                                    <a class='btn btn-danger btn-sm' href='inativarMaquina.php?ip=".base64_encode($l['ip'])."'>Inativar</a>
+                                    <a class='btn btn-success btn-sm' href='atrMaquinaCliente.php?ip=".base64_encode($l['ip'])."'>Atrbuir</a>
+                                </li>
+                            ";
+                        }
+                    }
+                ?>
+            </ul>
         </div>
     </div>
 
