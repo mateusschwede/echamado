@@ -62,7 +62,6 @@
         <div class="col-sm-12">
             <br>
             <?php
-                $data = null;
                 if(!empty($_POST['idCliente'])) {
                     $r = $db->prepare("SELECT * FROM chamado WHERE idCliente=? ORDER BY dthrCadastro DESC,situacao,tipo DESC");
                     $r->execute(array($_POST['idCliente']));
@@ -96,8 +95,8 @@
                                     <h5 class='mb-1'>Chamado ".$l['id']."</h5>
                                     <small>".$l['dthrCadastro']."</small>
                                 </div>
-                                <p class='mb-1'>Tipo: ".$l['tipo']."</p>
-                                <p class='mb-1'>Situação: <span style='color: ".$cor."'><b>".$l['situacao']."</b></span></p>
+                                <p class='mb-1'>Tipo: <span style='color: ".$cor."'><b>".$l['tipo']."</b></span></p>
+                                <p class='mb-1'>Situação: ".$l['situacao']."</p>
                         ";
                         $r2 = $db->prepare("SELECT nome FROM maquina WHERE ip=?");
                         $r2->execute(array($l['ipMaquina']));
@@ -126,13 +125,7 @@
                                 <p class='mb-1'>Descrição: ".$l['descricao']."</p>
                             </li>
                         ";
-                        $r5 = $db->prepare("SELECT DATE(dthrCadastro) FROM chamado WHERE id=?");
-                        $r5->execute(array($l['id']));
-                        $linhas4 = $r5->fetchAll(PDO::FETCH_ASSOC);
-                        foreach($linhas4 as $l4) {
-                            if(!$data==null) {$data = $l4['DATE(dthrCadastro)'];}
-                            if($data!=$l4['DATE(dthrCadastro)']) {echo "<br>";$data==$l4['DATE(dthrCadastro)'];}
-                        }
+                        echo "<br>";
                     }
                 }
             ?>
