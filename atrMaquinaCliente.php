@@ -3,14 +3,14 @@
     session_start();
     if((empty($_SESSION['nome'])) or (empty($_SESSION['senha']))) {header("location: index.php");}
 
-    $r = $db->prepare("SELECT nome FROM cliente WHERE id=?");
-    $r->execute(array(base64_decode($_GET['id'])));
+    $r = $db->prepare("SELECT nome FROM maquina WHERE ip=?");
+    $r->execute(array(base64_decode($_GET['ip'])));
     $linhas = $r->fetchAll(PDO::FETCH_ASSOC);
     foreach($linhas as $l) {$nome = $l['nome'];}
 
-    if((!empty($_GET['idVelho'])) and (!empty($_POST['ipMaquina2']))) {
+    if((!empty($_GET['ipVelho'])) and (!empty($_POST['idCliente2']))) {
         $r = $db->prepare("UPDATE cliente SET ipMaquina=? WHERE id=?");
-        $r->execute(array($_POST['ipMaquina2'],$_GET['idVelho']));
+        $r->execute(array($_GET['ipVelho'],$_POST['idCliente2']));
         $_SESSION['msgm'] = "<br><div class='alert alert-success alert-dismissible fade show' role='alert'>Máquina atribuida!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div><br>";
         header("location: pAdmin.php");
     }
@@ -49,18 +49,16 @@
 
     <div class="row">
         <div class="col-sm-12">
-            <h1>Atribuir máquina à <?=$nome?></h1>
-            <form action="atrClienteMaquina.php?idVelho=<?=base64_decode($_GET['id'])?>" method="post">
+            <h1>Atribuir cliente à <?=$nome?></h1>
+            <form action="atrMaquinaCliente.php?ipVelho=<?=base64_decode($_GET['ip'])?>" method="post">
                 <div class="form-group">
-                    <label for="selectMaquina">Máquina</label>
-                    <select class="form-control" required name="ipMaquina2" id="selectMaquina">
+                    <label for="selectCliente">Cliente</label>
+                    <select class="form-control" required name="idCliente2" id="selectCliente">
                         <?php
-                            $r = $db->query("SELECT * FROM maquina WHERE ativo=1 ORDER BY nome");
+                            $r = $db->query("SELECT * FROM cliente WHERE ativo=1 AND ipMaquina is null ORDER BY nome");
                             $linhas = $r->fetchAll(PDO::FETCH_ASSOC);
                             foreach($linhas as $l) {
-                                $r = $db->prepare("SELECT ipMaquina FROM cliente WHERE ipMaquina=?");
-                                $r->execute(array($l['ip']));
-                                if($r->rowCount()==0) {echo "<option value=".$l['ip'].">".$l['ip']."- ".$l['nome']."</option>";}
+                                echo "<option value=".$l['id'].">".$l['id']."- ".$l['nome']."</option>";
                             }
                         ?>
                     </select>
