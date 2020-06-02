@@ -21,7 +21,7 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item active"><a class="nav-link" href="pTecnico.php">Home</a></li>
-                        <li class="nav-item"><a class="nav-link" href="tecRelFinalizados.php">Finalizados</a></li>
+                        <li class="nav-item"><a class="nav-link" href="tecRelFinalizados.php">Histórico</a></li>
                         <li class="nav-item"><a class="nav-link" href="logout.php" style="color:tomato;"><?=$_SESSION['nome']?>-logout</a></li>
                     </ul>
                 </div>

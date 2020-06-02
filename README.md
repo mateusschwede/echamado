@@ -25,13 +25,13 @@ O EChamado é um software gestor de chamados eletrônicos para auxiliar o suport
   - Chamados pendentes
   - Analisar chamado
   - Finalizar meu chamado
-  - Relatório 'meus chamados'
+  - Relatório 'meus chamados/finalizado'
 -> 3 listas: (chamados pendentes-btnAnalisar) (meusChamados emAnalise-btnFinalizar) relatorio(meusChamadosFinalizados / opção data)
   
 - **Cliente**
   - Adicionar chamado
-  - Editar chamado pendente/analise
-  - Relatório 'meus chamados'
+  - Editar chamado pendente
+  - Relatório 'meus chamados/finalizados' com opção de data(similar ao do tecnico)
 
 ### Admin
 - login('admin')
