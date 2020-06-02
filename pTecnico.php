@@ -85,6 +85,58 @@
         </div>
     </div>
 
+    <div class="row">
+        <div class="col-sm-12">
+            <h2>Chamados abertos</h2>
+            <div class="list-group">
+                <?php
+                $r = $db->query("SELECT * FROM chamado WHERE situacao='pendente' ORDER BY dthrCadastro DESC,situacao,tipo DESC");
+                $linhas = $r->fetchAll(PDO::FETCH_ASSOC);
+                foreach($linhas as $l) {
+                    switch ($l['tipo']) {
+                        case "leve":
+                            $cor = "#28A745";
+                            break;
+                        case "moderado":
+                            $cor = "#FFC107";
+                            break;
+                        default:
+                            $cor = "#DC3545";
+                            break;
+                    }
+                    echo "
+                            <li class='list-group-item' id='item2'>
+                                <div class='d-flex w-100 justify-content-between'>
+                                    <h5 class='mb-1'>Chamado ".$l['id']."</h5>
+                                    <small>".$l['dthrCadastro']."</small>
+                                </div>
+                                <p class='mb-1'>Tipo: <span style='color: ".$cor."'><b>".$l['tipo']."</b></span></p>
+                                <p class='mb-1'>Situação: ".$l['situacao']."</p>
+                        ";
+                    $r2 = $db->prepare("SELECT nome FROM maquina WHERE ip=?");
+                    $r2->execute(array($l['ipMaquina']));
+                    $linhas2 = $r2->fetchAll(PDO::FETCH_ASSOC);
+                    foreach($linhas2 as $l2) {$nomeMaquina = $l2['nome'];}
+                    echo "
+                                <p class='mb-1'>Máquina: (".$l['ipMaquina'].") ".$nomeMaquina."</p>
+                        ";
+                    $r3 = $db->prepare("SELECT nome FROM cliente WHERE id=?");
+                    $r3->execute(array($l['idCliente']));
+                    $linhas3 = $r3->fetchAll(PDO::FETCH_ASSOC);
+                    foreach($linhas3 as $l3) {$nomeCliente = $l3['nome'];}
+                    echo "
+                                <p class='mb-1'>Cliente: (".$l['idCliente'].") ".$nomeCliente."</p>
+                                <p class='mb-1'>Descrição: ".$l['descricao']."</p>
+                                <a class='btn btn-warning btn-sm' href='analisarChamado.php?id=".base64_encode($l['id'])."'>Analisar</a>
+                            </li>
+                        ";
+                    echo "<br>";
+                }
+                ?>
+            </div>
+        </div>
+    </div>
+
 
 </div>
 </body>
