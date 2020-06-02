@@ -62,6 +62,7 @@
         <div class="col-sm-12">
             <br>
             <?php
+                $data = null;
                 if(!empty($_POST['idCliente'])) {
                     $r = $db->prepare("SELECT * FROM chamado WHERE idCliente=? ORDER BY dthrCadastro DESC,situacao,tipo DESC");
                     $r->execute(array($_POST['idCliente']));
@@ -125,6 +126,13 @@
                                 <p class='mb-1'>Descrição: ".$l['descricao']."</p>
                             </li>
                         ";
+                        $r5 = $db->prepare("SELECT DATE(dthrCadastro) FROM chamado WHERE id=?");
+                        $r5->execute(array($l['id']));
+                        $linhas4 = $r5->fetchAll(PDO::FETCH_ASSOC);
+                        foreach($linhas4 as $l4) {
+                            if(!$data==null) {$data = $l4['DATE(dthrCadastro)'];}
+                            if($data!=$l4['DATE(dthrCadastro)']) {echo "<br>";$data==$l4['DATE(dthrCadastro)'];}
+                        }
                     }
                 }
             ?>
