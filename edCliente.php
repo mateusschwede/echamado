@@ -71,7 +71,7 @@
                             foreach($linhas as $l) {$ip = $l['ipMaquina'];}
                             if($ip!=null) {echo "<option value=".$ipMaquina." selected>".$ipMaquina."</option>";}
 
-                            $r = $db->query("SELECT ip,nome FROM maquina");
+                            $r = $db->query("SELECT ip,nome FROM maquina WHERE ativo=1");
                             $linhas = $r->fetchAll(PDO::FETCH_ASSOC);
                             foreach($linhas as $l) {
                                 $r2 = $db->prepare("SELECT ipMaquina FROM cliente WHERE ipMaquina=?");
