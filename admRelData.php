@@ -83,7 +83,7 @@
                             <li class='list-group-item' id=".$borda.">
                                 <div class='d-flex w-100 justify-content-between'>
                                     <h5 class='mb-1'>Chamado ".$l['id']."</h5>
-                                    <small>".$l['dthrCadastro']."</small>
+                                    <small><b>".$l['dthrCadastro']."</b></small>
                                 </div>
                                 <p class='mb-1'>Tipo: <span style='color: ".$cor."'><b>".$l['tipo']."</b></span></p>
                                 <p class='mb-1'>Situação: ".$l['situacao']."</p>

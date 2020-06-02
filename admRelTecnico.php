@@ -24,8 +24,8 @@
                             <div class="dropdown-menu" aria-labelledby="relatorios">
                                 <a class="dropdown-item" href="admRelCliente.php">Chamados por cliente</a>
                                 <a class="dropdown-item" href="admRelData.php">Chamados por data</a>
-                                <a class="dropdown-item active" href="admRelMaquina.php">Chamados por máquina</a>
-                                <a class="dropdown-item" href="admRelTecnico.php">Chamados por tecnico</a>
+                                <a class="dropdown-item" href="admRelMaquina.php">Chamados por máquina</a>
+                                <a class="dropdown-item active" href="admRelTecnico.php">Chamados por tecnico</a>
                             </div>
                         </li>
                         <li class="nav-item"><a class="nav-link" href="logout.php" style="color:tomato;">Logout</a></li>
@@ -37,18 +37,18 @@
 
     <div class="row">
         <div class="col-sm-12">
-            <h1>Chamados por máquina</h1>
-            <form action="admRelMaquina.php" method="post">
+            <h1>Chamados por técnico</h1>
+            <form action="admRelTecnico.php" method="post">
                 <div class="form-group">
-                    <label for="selectMaquina">Máquina</label>
-                    <select class="form-control" required name="ipMaquina" id="selectMaquina">
+                    <label for="selectTecnico">Técnico</label>
+                    <select class="form-control" required name="idTecnico" id="selectTecnico">
                         <?php
-                            $r = $db->query("SELECT ip,nome,ativo FROM maquina ORDER BY nome,ativo");
-                            $linhas = $r->fetchAll(PDO::FETCH_ASSOC);
-                            foreach($linhas as $l) {
-                                if($l['ativo']==0) {echo "<option value=".$l['ip'].">".$l['ip']."- ".$l['nome']." (inativa)</option>";}
-                                else {echo "<option value=".$l['ip'].">".$l['ip']."- ".$l['nome']."</option>";}
-                            }
+                        $r = $db->query("SELECT id,nome,ativo FROM tecnico ORDER BY nome,ativo");
+                        $linhas = $r->fetchAll(PDO::FETCH_ASSOC);
+                        foreach($linhas as $l) {
+                            if($l['ativo']==0) {echo "<option value=".$l['id'].">".$l['id']."- ".$l['nome']." (inativo)</option>";}
+                            else {echo "<option value=".$l['id'].">".$l['id']."- ".$l['nome']."</option>";}
+                        }
                         ?>
                     </select>
                 </div>
@@ -61,9 +61,9 @@
         <div class="col-sm-12">
             <br>
             <?php
-                if(!empty($_POST['ipMaquina'])) {
-                    $r = $db->prepare("SELECT * FROM chamado WHERE ipMaquina=? ORDER BY dthrCadastro DESC,situacao,tipo DESC");
-                    $r->execute(array($_POST['ipMaquina']));
+                if(!empty($_POST['idTecnico'])) {
+                    $r = $db->prepare("SELECT * FROM chamado WHERE idTecnico=? ORDER BY dthrCadastro DESC,situacao,tipo DESC");
+                    $r->execute(array($_POST['idTecnico']));
                     $linhas = $r->fetchAll(PDO::FETCH_ASSOC);
                     foreach($linhas as $l) {
                         switch ($l['situacao']) {
@@ -102,14 +102,14 @@
                         $linhas2 = $r2->fetchAll(PDO::FETCH_ASSOC);
                         foreach($linhas2 as $l2) {$nomeMaquina = $l2['nome'];}
                         echo "
-                                <p class='mb-1'><b>Máquina: (".$l['ipMaquina'].") ".$nomeMaquina."</b></p>
+                                <p class='mb-1'>Máquina: (".$l['ipMaquina'].") ".$nomeMaquina."</p>
                         ";
                         $r3 = $db->prepare("SELECT nome FROM tecnico WHERE id=?");
                         $r3->execute(array($l['idTecnico']));
                         $linhas3 = $r3->fetchAll(PDO::FETCH_ASSOC);
                         foreach($linhas3 as $l3) {$nomeTecnico = $l3['nome'];}
                         echo "
-                                <p class='mb-1'>Técnico: (".$l['idTecnico'].") ".$nomeTecnico."</p>
+                                <p class='mb-1'><b>Técnico: (".$l['idTecnico'].") ".$nomeTecnico."</b></p>
                         ";
                         $r4 = $db->prepare("SELECT nome FROM cliente WHERE id=?");
                         $r4->execute(array($l['idCliente']));
