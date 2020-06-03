@@ -33,11 +33,30 @@
         <div class="col-sm-12">
             <?php if($_SESSION['msgm']!=null){echo $_SESSION['msgm'];$_SESSION['msgm']=null;}?>
             <h2>Meus chamados</h2>
+            <form action="tecRelFinalizados.php" method="post">
+                <div class="form-group">
+                    <label for="dataChamado">Data cadastro</label>
+                    <input type="date" required name="dia" id="dataChamado" class="form-control">
+                </div>
+                <button type="submit" class="btn btn-success">Verificar</button>
+            </form>
+            <br>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12">
             <div class="list-group">
                 <?php
-                    $r = $db->prepare("SELECT * FROM chamado WHERE idTecnico=? AND situacao='finalizado' ORDER BY dthrCadastro DESC,tipo DESC");
-                    $r->execute(array($id));
-                    $linhas = $r->fetchAll(PDO::FETCH_ASSOC);
+                    if(!empty($_POST['dia'])) {
+                        $r = $db->prepare("SELECT * FROM chamado WHERE idTecnico=? AND situacao='finalizado' AND DATE(dthrCadastro)=? ORDER BY dthrCadastro DESC,tipo DESC");
+                        $r->execute(array($id,$_POST['dia']));
+                        $linhas = $r->fetchAll(PDO::FETCH_ASSOC);
+                    } else {
+                        $r = $db->prepare("SELECT * FROM chamado WHERE idTecnico=? AND situacao='finalizado' ORDER BY dthrCadastro DESC,tipo DESC");
+                        $r->execute(array($id));
+                        $linhas = $r->fetchAll(PDO::FETCH_ASSOC);
+                    }
                     foreach($linhas as $l) {
                         switch ($l['tipo']) {
                             case "leve":
