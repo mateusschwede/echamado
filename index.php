@@ -3,9 +3,9 @@
     $msg = null;
 
     if((!empty($_POST['nome'])) and (!empty($_POST['senha']))) {
-        $r = $db->prepare("SELECT id FROM cliente WHERE nome=? AND senha=?");
+        $r = $db->prepare("SELECT id FROM cliente WHERE nome=? AND ativo=1 AND senha=?");
         $r->execute(array($_POST['nome'],$_POST['senha']));
-        $r2 = $db->prepare("SELECT id FROM tecnico WHERE nome=? AND senha=?");
+        $r2 = $db->prepare("SELECT id FROM tecnico WHERE nome=? AND ativo=1 AND senha=?");
         $r2->execute(array($_POST['nome'],$_POST['senha']));
         if($r->rowCount()>0) {
             session_start();
