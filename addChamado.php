@@ -51,7 +51,7 @@
                     <select class="form-control" id="selectTipo" required name="tipo">
                         <option value="leve">Leve</option>
                         <option value="moderado">Moderado</option>
-                        <option value="urgnte">Urgente!</option>
+                        <option value="urgente">Urgente!</option>
                     </select>
                 </div>
                 <button type="button" class="btn btn-danger" onclick="window.location.href='pCliente.php'">Cancelar</button>
