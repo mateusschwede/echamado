@@ -115,7 +115,6 @@
                                 <p class='mb-1'>Descrição: ".$l['descricao']."</p>
                             </li>
                         ";
-                        echo "<br>";
                     }
                 }
             ?>

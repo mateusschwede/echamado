@@ -34,8 +34,6 @@ CREATE TABLE chamado (
     dthrAnalise DATETIME,
     dthrFinalizado DATETIME
 ) CHARSET=utf8;
-/*Tipos: leve,moderado,preciso,urgente
-Situações: pendente,andamento,finalizado*/
 
 CREATE TABLE notificacao (
     id INTEGER AUTO_INCREMENT PRIMARY KEY,
@@ -43,16 +41,6 @@ CREATE TABLE notificacao (
     tipo VARCHAR(10) NOT NULL,
     idCliente INTEGER NOT NULL
 ) CHARSET=utf8;
-/*
-2 TIPOS:
-- Chamado pra análise: (qndo tecnico clicar em 'analisar')
-Chamado x em análise
-O chamado x está sendo analisado pelo técnico (id)nome
-
-- Chamado finalizado: (qndo tecnico clicar em 'finalizar')
-Chamado x finalizado!
-O chamado x está finalizado pelo técnico (id)nome.
-*/
 
 INSERT INTO maquina(ip,nome,ativo) VALUES ("232-333-456","notebook lenovo x10",1),("233-333-455","notebook asus5",0s);
 INSERT INTO cliente(nome,senha,ipMaquina,ativo) VALUES ("fulano","333","232-333-456",1),("fulanoInativo","444","233-333-455",0);

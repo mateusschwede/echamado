@@ -72,7 +72,6 @@
                                 <a class='btn btn-success btn-sm' href='finalizarChamado.php?id=".base64_encode($l['id'])."&id2=".base64_encode($l['idCliente'])."'>Finalizar</a>
                             </li>
                         ";
-                        echo "<br>";
                     }
                 ?>
             </div>
