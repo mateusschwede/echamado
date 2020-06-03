@@ -69,7 +69,7 @@
                                 <p class='mb-1'>Cliente: (".$l['idCliente'].") ".$nomeCliente."</p>
                                 <p class='mb-1'>Análise: ".$l['dthrAnalise']."</p>
                                 <p class='mb-1'>Descrição: ".$l['descricao']."</p>
-                                <a class='btn btn-success btn-sm' href='finalizarChamado.php?id=".base64_encode($l['id'])."'>Finalizar</a>
+                                <a class='btn btn-success btn-sm' href='finalizarChamado.php?id=".base64_encode($l['id'])."&id2=".base64_encode($l['idCliente'])."'>Finalizar</a>
                             </li>
                         ";
                         echo "<br>";
@@ -122,7 +122,7 @@
                     echo "
                                 <p class='mb-1'>Cliente: (".$l['idCliente'].") ".$nomeCliente."</p>
                                 <p class='mb-1'>Descrição: ".$l['descricao']."</p>
-                                <a class='btn btn-warning btn-sm' href='analisarChamado.php?id=".base64_encode($l['id'])."'>Analisar</a>
+                                <a class='btn btn-warning btn-sm' href='analisarChamado.php?id=".base64_encode($l['id'])."&id2=".base64_encode($l['idCliente'])."'>Analisar</a>
                             </li>
                         ";
                     echo "<br>";
