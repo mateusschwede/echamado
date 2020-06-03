@@ -7,6 +7,11 @@
     $r->execute(array($_SESSION['nome'],$_SESSION['senha']));
     $linhas = $r->fetchAll(PDO::FETCH_ASSOC);
     foreach($linhas as $l) {$id=$l['id'];}
+
+    $r = $db->prepare("SELECT count(id) FROM notificacao WHERE idCliente=?");
+    $r->execute(array($id));
+    $linhas = $r->fetchAll(PDO::FETCH_ASSOC);
+    foreach($linhas as $l) {$not = "<small><span class='badge badge-pill badge-danger'>".$l['count(id)']."</span></small>";}
 ?>
 
 <body id="fundo">
@@ -21,6 +26,7 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item active"><a class="nav-link" href="pCliente.php">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="mensagem.php">Mensagens<?=$not?></a></li>
                         <li class="nav-item"><a class="nav-link" href="cliRelFinalizados.php">Histórico</a></li>
                         <li class="nav-item"><a class="nav-link" href="logout.php" style="color:tomato;"><?=$_SESSION['nome']?>-logout</a></li>
                     </ul>

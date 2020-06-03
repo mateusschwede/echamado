@@ -1,1 +1,3 @@
 - colocar mensagens do andamento/finalização do processo, pro cliente
+
+- idCliente fazer como no tecnico ($_SESSION)
