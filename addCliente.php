@@ -3,10 +3,11 @@
     session_start();
     if((empty($_SESSION['nome'])) or (empty($_SESSION['senha']))) {header("location: index.php");}
 
-    if((!empty($_POST['nome'])) and (!empty($_POST['senha'])) and (!empty($_POST['ipMaquina']))) {
+    if((!empty($_POST['nome'])) and (!empty($_POST['senha']))) {
         $r = $db->prepare("SELECT nome FROM cliente WHERE nome=? AND senha=?");
         $r->execute(array($_POST['nome'],$_POST['senha']));
         if($r->rowCount()==0) {
+            if($_POST['ipMaquina']==""){$_POST['ipMaquina']=null;}
             $r = $db->prepare("INSERT INTO cliente(nome,senha,ipMaquina) VALUES (?,?,?)");
             $r->execute(array($_POST['nome'],$_POST['senha'],$_POST['ipMaquina']));
             $_SESSION['msgm'] = "<br><div class='alert alert-success alert-dismissible fade show' role='alert'>Cliente adicionado!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div><br>";
@@ -58,7 +59,8 @@
                 </div>
                 <div class="form-group">
                     <label for="selectMaquina">Máquina</label>
-                    <select class="form-control" required name="ipMaquina" id="selectMaquina">
+                    <select class="form-control" name="ipMaquina" id="selectMaquina">
+                        <option value="">-- Não atribuir --</option>
                         <?php
                             $r = $db->query("SELECT ip,nome FROM maquina");
                             $linhas = $r->fetchAll(PDO::FETCH_ASSOC);

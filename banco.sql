@@ -12,7 +12,7 @@ CREATE TABLE cliente (
     nome VARCHAR(50) NOT NULL,
     senha VARCHAR(5) NOT NULL,
     ativo BOOLEAN NOT NULL DEFAULT 1,
-    ipMaquina VARCHAR(30) NOT NULL
+    ipMaquina VARCHAR(30)
 ) CHARSET=utf8;
 
 CREATE TABLE tecnico (

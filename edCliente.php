@@ -8,10 +8,11 @@
     $linhas = $r->fetchAll(PDO::FETCH_ASSOC);
     foreach($linhas as $l) {$nome = $l['nome']; $senha = $l['senha']; $ipMaquina = $l['ipMaquina'];}
 
-    if((!empty($_GET['idVelho'])) and (!empty($_POST['nome2'])) and (!empty($_POST['senha2'])) and (!empty($_POST['ipMaquina2']))) {
+    if((!empty($_GET['idVelho'])) and (!empty($_POST['nome2'])) and (!empty($_POST['senha2']))) {
         $r = $db->prepare("SELECT nome,senha FROM cliente WHERE nome=? AND senha=? AND id!=?");
         $r->execute(array($_POST['nome2'],$_POST['senha2'],$_GET['idVelho']));
         if($r->rowCount()==0) {
+            if($_POST['ipMaquina2']==""){$_POST['ipMaquina2']=null;}
             $r = $db->prepare("UPDATE cliente SET nome=?,senha=?,ipMaquina=? WHERE  id=?");
             $r->execute(array($_POST['nome2'],$_POST['senha2'],$_POST['ipMaquina2'],$_GET['idVelho']));
             $_SESSION['msgm'] = "<br><div class='alert alert-success alert-dismissible fade show' role='alert'>Cliente atualizado!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div><br>";
@@ -63,7 +64,8 @@
                 </div>
                 <div class="form-group">
                     <label for="selectMaquina">Máquina</label>
-                    <select class="form-control" required name="ipMaquina2" id="selectMaquina">
+                    <select class="form-control" name="ipMaquina2" id="selectMaquina">
+                        <option value="">-- Não atribuir --</option>
                         <?php
                             $r = $db->prepare("SELECT ipMaquina FROM cliente WHERE id=?");
                             $r->execute(array(base64_decode($_GET['id'])));
