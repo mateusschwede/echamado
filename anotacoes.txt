@@ -1,2 +1,3 @@
-- EdCliente mesmos dados de tecnico(ñ pode por causa do login)(vice-versa pro técnico)
-- O mesmo de cima no addCliente e no addTecnico
+- arrumar idTecnico como $_SESSION
+
+- colocar mensagens do andamento/finalização do processo, pro cliente

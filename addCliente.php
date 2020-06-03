@@ -7,12 +7,16 @@
         $r = $db->prepare("SELECT nome FROM cliente WHERE nome=? AND senha=?");
         $r->execute(array($_POST['nome'],$_POST['senha']));
         if($r->rowCount()==0) {
-            if($_POST['ipMaquina']==""){$_POST['ipMaquina']=null;}
-            $r = $db->prepare("INSERT INTO cliente(nome,senha,ipMaquina) VALUES (?,?,?)");
-            $r->execute(array($_POST['nome'],$_POST['senha'],$_POST['ipMaquina']));
-            $_SESSION['msgm'] = "<br><div class='alert alert-success alert-dismissible fade show' role='alert'>Cliente adicionado!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div><br>";
-            header("location: admCliente.php");
-        } else {$_SESSION['msgm'] = "<br><div class='alert alert-danger alert-dismissible fade show' role='alert'>Cadastro já existente!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div><br>"; header("location: admCliente.php");}
+            $r = $db->prepare("SELECT nome FROM tecnico WHERE nome=? AND senha=?");
+            $r->execute(array($_POST['nome'],$_POST['senha']));
+            if($r->rowCount()==0) {
+                if ($_POST['ipMaquina'] == "") {$_POST['ipMaquina'] = null;}
+                $r = $db->prepare("INSERT INTO cliente(nome,senha,ipMaquina) VALUES (?,?,?)");
+                $r->execute(array($_POST['nome'], $_POST['senha'], $_POST['ipMaquina']));
+                $_SESSION['msgm'] = "<br><div class='alert alert-success alert-dismissible fade show' role='alert'>Cliente adicionado!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div><br>";
+                header("location: admCliente.php");
+            } else {$_SESSION['msgm'] = "<br><div class='alert alert-danger alert-dismissible fade show' role='alert'>Técnico já existente com esse cadastro!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div><br>"; header("location: admCliente.php");}
+        } else {$_SESSION['msgm'] = "<br><div class='alert alert-danger alert-dismissible fade show' role='alert'>Cliente já existente!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div><br>"; header("location: admCliente.php");}
     }
 ?>
 

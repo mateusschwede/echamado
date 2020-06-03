@@ -12,11 +12,15 @@
         $r = $db->prepare("SELECT nome,senha FROM tecnico WHERE nome=? AND senha=? AND id!=?");
         $r->execute(array($_POST['nome2'],$_POST['senha2'],$_GET['idVelho']));
         if($r->rowCount()==0) {
-            $r = $db->prepare("UPDATE tecnico SET nome=?,senha=? WHERE  id=?");
-            $r->execute(array($_POST['nome2'],$_POST['senha2'],$_GET['idVelho']));
-            $_SESSION['msgm'] = "<br><div class='alert alert-success alert-dismissible fade show' role='alert'>Técnico atualizado!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div><br>";
-            header("location: admTecnico.php");
-        } else {$_SESSION['msgm'] = "<br><div class='alert alert-danger alert-dismissible fade show' role='alert'>Cadastro já existente!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div><br>"; header("location: admTecnico.php");}
+            $r = $db->prepare("SELECT nome FROM cliente WHERE nome=? AND senha=?");
+            $r->execute(array($_POST['nome2'],$_POST['senha2']));
+            if($r->rowCount()==0) {
+                $r = $db->prepare("UPDATE tecnico SET nome=?,senha=? WHERE  id=?");
+                $r->execute(array($_POST['nome2'], $_POST['senha2'], $_GET['idVelho']));
+                $_SESSION['msgm'] = "<br><div class='alert alert-success alert-dismissible fade show' role='alert'>Técnico atualizado!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div><br>";
+                header("location: admTecnico.php");
+            } else {$_SESSION['msgm'] = "<br><div class='alert alert-danger alert-dismissible fade show' role='alert'>Cliente já existente com esse cadastro!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div><br>"; header("location: admTecnico.php");}
+        } else {$_SESSION['msgm'] = "<br><div class='alert alert-danger alert-dismissible fade show' role='alert'>Outro técnico já existente!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div><br>"; header("location: admTecnico.php");}
     }
 ?>
 
