@@ -1,2 +1,2 @@
-- Cliente qndo inativa perde a máquina = máquina disponível
-- Cliente qndo ativa = cliente sem máquina
+- EdCliente mesmos dados de tecnico(ñ pode por causa do login)(vice-versa pro técnico)
+- O mesmo de cima no addCliente e no addTecnico
