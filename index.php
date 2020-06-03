@@ -18,6 +18,10 @@
             $_SESSION['nome'] = $_POST['nome'];
             $_SESSION['senha'] = $_POST['senha'];
             $_SESSION['msgm'] = null;
+            $r = $db->prepare("SELECT id FROM tecnico WHERE nome=? AND senha=?");
+            $r->execute(array($_SESSION['nome'],$_SESSION['senha']));
+            $linhas = $r->fetchAll(PDO::FETCH_ASSOC);
+            foreach($linhas as $l) {$_SESSION['idTecnico']=$l['id'];}
             header("location: pTecnico.php");
         } elseif(($_POST['nome']=="admin") and ($_POST['senha']=="111")) {
             session_start();

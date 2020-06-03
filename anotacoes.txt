@@ -1,3 +1,1 @@
-- arrumar idTecnico como $_SESSION
-
 - colocar mensagens do andamento/finalização do processo, pro cliente

@@ -2,11 +2,6 @@
     require_once 'conect.php';
     session_start();
     if((empty($_SESSION['nome'])) or (empty($_SESSION['senha']))) {header("location: index.php");}
-
-    $r = $db->prepare("SELECT id FROM tecnico WHERE nome=? AND senha=?");
-    $r->execute(array($_SESSION['nome'],$_SESSION['senha']));
-    $linhas = $r->fetchAll(PDO::FETCH_ASSOC);
-    foreach($linhas as $l) {$id=$l['id'];}
 ?>
 
 <body id="fundo">
@@ -50,11 +45,11 @@
                 <?php
                     if(!empty($_POST['dia'])) {
                         $r = $db->prepare("SELECT * FROM chamado WHERE idTecnico=? AND situacao='finalizado' AND DATE(dthrCadastro)=? ORDER BY dthrCadastro DESC,tipo DESC");
-                        $r->execute(array($id,$_POST['dia']));
+                        $r->execute(array($_SESSION['idTecnico'],$_POST['dia']));
                         $linhas = $r->fetchAll(PDO::FETCH_ASSOC);
                     } else {
                         $r = $db->prepare("SELECT * FROM chamado WHERE idTecnico=? AND situacao='finalizado' ORDER BY dthrCadastro DESC,tipo DESC");
-                        $r->execute(array($id));
+                        $r->execute(array($_SESSION['idTecnico']));
                         $linhas = $r->fetchAll(PDO::FETCH_ASSOC);
                     }
                     foreach($linhas as $l) {
